@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, FlatList, TouchableOpacity } from 'react-native';
-import { apiWithToken } from '../api';
-import { logout } from '../auth';
-import { Task } from '../types';
+import { apiWithToken } from './api';
+import { logout } from './auth';
+import { Task } from './types';
 
 interface Props {
   onLogout: () => void;
