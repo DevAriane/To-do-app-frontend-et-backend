@@ -14,20 +14,10 @@ class TaskController extends Controller
     public function store(Request $request) {
         $validated = $request->validate([
             'title' => 'required',
-            'description' => 'nullable'
+            'description' => 'nullable',
         ]);
         return Task::create($validated);
     }
-
-    public function index(Request $request) {
-    return $request->user()->tasks;
-}
-
-public function store(Request $request) {
-    $validated = $request->validate(['title'=>'required']);
-    return $request->user()->tasks()->create($validated);
-}
-
 
     public function show(Task $task) {
         return $task;
