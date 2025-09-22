@@ -1,23 +1,22 @@
-
 import { StatusBar } from 'expo-status-bar';
-import {  StyleSheet ,Image,View,Text} from 'react-native';
+import { StyleSheet, Image, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {Animated,Easing,} from "react-native";
-import { Link } from "expo-router";
-import { useRouter } from "expo-router";
-import { useEffect } from "react";
+import { Animated, Easing } from 'react-native';
+import { useRouter } from 'expo-router';
+import { useEffect, useRef } from 'react';
 
 export default function HomeScreen() {
-
-   const router = useRouter();
-  const logoScale = new Animated.Value(0);
+  const router = useRouter();
+  const logoScale = useRef(new Animated.Value(0.1)).current; // commence petit mais visible
 
   useEffect(() => {
     const loadApp = async () => {
       try {
         await new Promise((resolve) => setTimeout(resolve, 10000));
         router.replace('/onboarding');
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     Animated.timing(logoScale, {
@@ -31,37 +30,33 @@ export default function HomeScreen() {
   }, []);
 
   return (
-   <SafeAreaView>
-    <StatusBar backgroundColor='white'/>
-   
-    <View style={styles.reactLogo}> 
-
-       <Animated.View
-          style={ { transform: [{ scale: logoScale }] }}
-        >
-   <Image 
-   style={{width:'80%',height:'40%'}} 
-   source={require('../assets/images/image2.png')} 
-   resizeMode='contain'
-   />
-  </Animated.View>
-   </View>
-   </SafeAreaView>
+    <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor="white" />
+      <View style={styles.reactLogo}>
+        <Animated.View style={{ transform: [{ scale: logoScale }] }}>
+          <Image
+            style={styles.image}
+            source={require('../assets/images/image2.png')}
+            resizeMode="contain"
+          />
+        </Animated.View>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  reactLogo: {
-    width:"100%",
-    height:"100%",
-    display:"flex",
-    justifyContent:'center',
-    alignItems:'center',
-    backgroundColor:'white',
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
   },
-
-  image:{
-
-  }
-
+  reactLogo: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  image: {
+    width: 300,   // fixe pour tester
+    height: 300,  // fixe pour tester
+  },
 });
