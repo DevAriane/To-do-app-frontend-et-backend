@@ -37,7 +37,7 @@ export default function TaskFormScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.header}>📝 Ajouter / Modifier une tâche</Text>
+      <Text style={styles.header}>📝 Ajouter  une tâche</Text>
 
 
       <View style={styles.inputContainer}>

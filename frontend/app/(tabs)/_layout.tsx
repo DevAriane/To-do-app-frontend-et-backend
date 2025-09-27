@@ -1,6 +1,6 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { HapticTab } from '@/components/haptic-tab';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
@@ -14,41 +14,63 @@ export default function TabLayout() {
 
   return (
     <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color="#ff80ab"/>,
-        }}
-      />
-       <Tabs.Screen
-        name="TaskFormList"
-        options={{
-          title: 'Creer',
-          tabBarIcon: ({ color }) => <MaterialIcons name="create-new-folder" size={28} color="#ff80ab" />
-          
-        }}
-      />
-       <Tabs.Screen
-        name="TaskListScreen"
-        options={{
-          title: 'Lister',
-          tabBarIcon: ({ color }) => <Feather name="list" size={28} color="#ff80ab" />
-        }}
-      />
-       <Tabs.Screen
-        name="profil"
-        options={{
-          title: 'profil',
-          tabBarIcon: ({ color }) => 
-          <MaterialCommunityIcons name="face-man-profile" size={28} color="#ff80ab" />
-        }}
-      />
-    </Tabs>
+  screenOptions={{
+    headerShown: false,
+    tabBarButton: HapticTab,
+    tabBarStyle: styles.container,
+    tabBarActiveTintColor: '#ff80ab',  // rose pour actif
+    tabBarInactiveTintColor: 'white',  // blanc pour inactif
+  }}
+>
+  <Tabs.Screen
+    name="index"
+    options={{
+      title: 'Home',
+      tabBarIcon: ({ color }) => (
+        <IconSymbol size={28} name="house.fill" color={color} />
+      ),
+    }}
+  />
+  <Tabs.Screen
+    name="TaskFormList"
+    options={{
+      title: 'Creer',
+      tabBarIcon: ({ color }) => (
+        <MaterialIcons name="create-new-folder" size={28} color={color} />
+      ),
+    }}
+  />
+  <Tabs.Screen
+    name="TaskListScreen"
+    options={{
+      title: 'Lister',
+      tabBarIcon: ({ color }) => (
+        <Feather name="list" size={28} color={color} />
+      ),
+    }}
+  />
+  <Tabs.Screen
+    name="profil"
+    options={{
+      title: 'Profil',
+      tabBarIcon: ({ color }) => (
+        <MaterialCommunityIcons
+          name="face-man-profile"
+          size={28}
+          color={color}
+        />
+      ),
+    }}
+  />
+</Tabs>
+
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+ color:'white',
+    backgroundColor: '#ffe0f0', // fond rose clair
+   
+  }
+});
