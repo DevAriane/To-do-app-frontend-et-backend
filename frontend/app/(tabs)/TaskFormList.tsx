@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { View, TextInput, TouchableOpacity, Text, StyleSheet ,Image} from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { createTask, updateTask, getTasks } from "../api/tasks";
+import { createTask,updateTask,deleteTask ,getTasks} from "@/src/tasks";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons, Feather } from '@expo/vector-icons';
 

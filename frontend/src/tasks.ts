@@ -1,13 +1,13 @@
 import api from "./axios";
-import { Task } from "../types/Task";
+import { Task } from "./types";
 
 export const getTasks = async (): Promise<Task[]> => {
   const res = await api.get("/tasks");
   return res.data;
 };
 
-export const createTask = async (task: Omit<Task, "id">) => {
-  const res = await api.post("/tasks", task);
+export const createTask = async (title:string,description:string) => {
+  const res = await api.post("/tasks", {title,description});
   return res.data;
 };
 

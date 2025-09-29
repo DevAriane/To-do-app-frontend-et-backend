@@ -10,7 +10,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { register } from "./auth"; // Fonction à créer dans auth.ts
+import { register } from "@/src/auth"; // Fonction à créer dans auth.ts
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function RegisterScreen() {
