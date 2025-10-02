@@ -37,7 +37,7 @@ export default function OnboardingScreen() {
    />
 
     <TouchableOpacity style={styles.button} onPress={()=> {
- router.push('/(tabs)/TaskListScreen')
+ checkAuth();
     }}><Text style={styles.buttonText}>  Get Startet</Text></TouchableOpacity>
      
     </View>
