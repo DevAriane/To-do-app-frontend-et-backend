@@ -1,4 +1,4 @@
-import api from "./axios";
+import api from "./api";
 import { Task } from "./types";
 
 export const getTasks = async (): Promise<Task[]> => {
