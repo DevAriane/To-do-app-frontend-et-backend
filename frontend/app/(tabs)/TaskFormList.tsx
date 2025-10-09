@@ -6,6 +6,7 @@ import { createTask,updateTask,deleteTask ,getTasks} from "@/src/tasks";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons, Feather } from '@expo/vector-icons';
 
+
 export default function TaskFormScreen() {
   const { id } = useLocalSearchParams<{ id?: string }>();
   const [title, setTitle] = useState("");
@@ -30,7 +31,7 @@ export default function TaskFormScreen() {
     if (id) {
       await updateTask(Number(id), { title, description });
     } else {
-      await createTask({ title, description });
+      await createTask( title, description );
     }
     router.push("/TaskListScreen"); // retour à la liste
   };

@@ -8,6 +8,7 @@ import {
   ImageBackground,
   Image,
 } from "react-native";
+import { login } from "@/src/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import axios from "axios";
@@ -21,11 +22,8 @@ export default function LoginScreen() {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post("http://127.0.0.1:8000/api/login", {
-        email,
-        password,
-      });
-      await AsyncStorage.setItem("token", res.data.token);
+      
+      await login(email,password);
       router.replace("/TaskListScreen");
     } catch (error) {
       console.error("Erreur de connexion", error);

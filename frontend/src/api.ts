@@ -2,8 +2,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: "https://nonoptionally-disturbed-scottie.ngrok-free/api",
+  baseURL: "http://10.179.118.191:8000/api",
   timeout: 10000,
+    withCredentials: true,
 });
 
 api.interceptors.request.use(
@@ -37,5 +38,5 @@ api.interceptors.response.use(
   }
 );
 
-export const image_default_url = 'https://nonoptionally-disturbed-scottie.ngrok-free/storage';
+export const image_default_url = 'http://10.179.118.191:8000/storage';
 export default api;
