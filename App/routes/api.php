@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\AuthController;
 
+Route::get('/ping', function () {
+    return response()->json(['message' => 'API OK ✅']);
+});
 
 
 Route::get('/test', function(Request $request){
@@ -14,9 +17,14 @@ Route::get('/test', function(Request $request){
 
  Route::post('/register',[AuthController::class,'register']);
  Route::post('/login',[AuthController::class,'login']);
- Route::post('/logout',[AuthController::class,'logout']);
 
-  Route::get('/tasks', [TaskController::class,'index']);
-    Route::post('/tasks/create', [TaskController::class,'store']);
+
+ Route::middleware('auth:sanctum')->group(function () {
+ Route::post('/logout',[AuthController::class,'logout']);
+    Route::get('/tasks', [TaskController::class,'show']);
+    Route::post('/tasks/create', [TaskController::class,'store']);  
     Route::post('/tasks/{id}/update', [TaskController::class,'update']);
     Route::post('/tasks/{id}/delete', [TaskController::class,'destroy']);
+});
+
+

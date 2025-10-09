@@ -11,17 +11,21 @@ class TaskController extends Controller
         return Task::all();
     }
 
-    public function store(Request $request) {
-        $validated = $request->validate([
-            'title' => 'required',
-            'description' => 'nullable',
-        ]);
-        return Task::create($validated);
-    }
+public function store(Request $request) {
+    $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'user_id' => 'required|exists:users,id'
+    ]);
 
-    // public function show(Task $task) {
-    //     return $task;
-    // }
+    return Task::create($validated);
+}
+
+
+
+    public function show(Task $task) {
+        return $task;
+    }
 
     public function update(Request $request, Task $task) {
         $task->update($request->all());
