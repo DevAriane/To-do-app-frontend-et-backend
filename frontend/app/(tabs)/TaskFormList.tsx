@@ -1,6 +1,6 @@
 // app/tasks/form.tsx
 import React, { useEffect, useState } from "react";
-import { View, TextInput, TouchableOpacity, Text, StyleSheet ,Image} from "react-native";
+import { View, TextInput, TouchableOpacity, Text, StyleSheet ,Image,Alert,StatusBar} from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { createTask,updateTask,deleteTask ,getTasks} from "@/src/tasks";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -31,28 +31,34 @@ export default function TaskFormScreen() {
     if (id) {
       await updateTask(Number(id), { title, description });
     } else {
-      await createTask( title, description );
+      await createTask(title, description);
+       Alert.alert("Succès", "tache créé avec succès !");
+
     }
     router.push("/TaskListScreen"); // retour à la liste
   };
 
   return (
     <SafeAreaView style={styles.container}>
+         
       <Text style={styles.header}>📝 Ajouter  une tâche</Text>
 
 
       <View style={styles.inputContainer}>
         <MaterialIcons name="title" size={24} color="#d6336c" style={styles.icon} />
+        <View style={styles.put}>
         <TextInput
           placeholder="Titre"
           value={title}
           onChangeText={setTitle}
           style={styles.input}
         />
+        </View>
       </View>
 
       <View style={styles.inputContainer}>
         <Feather name="align-left" size={24} color="#d6336c" style={styles.icon} />
+        <View style={styles.put} >
         <TextInput
           placeholder="Description"
           value={description}
@@ -60,6 +66,7 @@ export default function TaskFormScreen() {
           style={[styles.input, styles.textArea]}
           multiline
         />
+        </View>
       </View>
 
       <TouchableOpacity style={styles.button} onPress={handleSave}>
@@ -86,6 +93,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     backgroundColor: '#fff',
     borderRadius: 15,
     paddingHorizontal: 15,
@@ -95,6 +103,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 5,
     elevation: 3,
+    height: 60,
   },
   icon: {
     marginRight: 10,
@@ -102,6 +111,13 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     height: 50,
+    color: '#e75ea5ff',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  put:{
+    flex:1,
+    marginLeft:50,
   },
   textArea: {
     height: 100,

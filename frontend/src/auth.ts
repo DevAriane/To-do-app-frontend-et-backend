@@ -38,7 +38,7 @@ export const login = async (email: string, password: string): Promise<User> => {
   try {
     const res = await api.post('/login', { email, password });
   await AsyncStorage.setItem('token', res.data.token);
-  await api.get("/sanctum/csrf-cookie");
+  
   return res.data.user;
   } catch (error:any) {
       if (error.response) {

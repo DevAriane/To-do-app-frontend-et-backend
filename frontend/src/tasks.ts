@@ -8,7 +8,7 @@ export const getTasks = async (): Promise<Task[]> => {
 
 export const createTask = async (title:string,description:string) => {
   try {
-    const res = await api.post("/tasks/create", {title,description,  user_id: currentUser.id});
+    const res = await api.post("/tasks/create", {title,description});
   return res.data;
   } catch (error:any) {
          if (error.response) {
