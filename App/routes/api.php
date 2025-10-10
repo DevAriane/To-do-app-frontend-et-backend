@@ -20,8 +20,8 @@ Route::get('/test', function(Request $request){
 
 
  Route::middleware('auth:sanctum')->group(function () {
- Route::post('/logout',[AuthController::class,'logout']);
-    Route::get('/tasks', [TaskController::class,'show']);
+    Route::post('/logout',[AuthController::class,'logout']);
+    Route::get('/tasks', [TaskController::class,'index']);
     Route::post('/tasks/create', [TaskController::class,'store']);  
     Route::post('/tasks/{id}/update', [TaskController::class,'update']);
     Route::post('/tasks/{id}/delete', [TaskController::class,'destroy']);
