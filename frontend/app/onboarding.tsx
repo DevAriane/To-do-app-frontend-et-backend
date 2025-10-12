@@ -4,6 +4,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import api from "@/src/api";
+
+ 
+
+
 export default function OnboardingScreen() {
   const router = useRouter();
 

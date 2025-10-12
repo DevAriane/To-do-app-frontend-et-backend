@@ -27,6 +27,20 @@ class AuthController extends Controller
         return response()->json(['user'=>$user, 'token'=>$token]);
     }
 
+public function index()
+{
+    // ✅ Récupère les infos de l'utilisateur connecté
+    $user = Auth::user();
+
+    if (!$user) {
+        return response()->json(['message' => 'Utilisateur non authentifié'], 401);
+    }
+
+    return response()->json($user);
+}
+
+
+
     public function login(Request $request) {
         $user = User::where('email',$request->email)->first();
 

@@ -1,14 +1,44 @@
-import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { Feather } from "@expo/vector-icons";
 import { router } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {getUserData} from "@/src/auth"; 
+import React, { useEffect, useState } from "react"; 
+import api from "@/src/api";
 
 export default function ProfilePage() {
+const handleLogout = async () => {
+  await AsyncStorage.removeItem('token');
+  await AsyncStorage.removeItem('userData');
+  router.replace('/LoginScreen'); // redirige vers l’écran de connexion
+};
+ const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+        const fetchUser = async () => {
+      const token = await AsyncStorage.getItem("token");
+      console.log("token :::", token);
+
+      if (!token) return;
+
+      try {
+        const res = await api.get("/user"); // ta route protégée Laravel
+        console.log("userData :", res.data);
+        setUser(res.data);
+      } catch (e) {
+        console.error("Erreur récupération user", e);
+      }
+    };
+    fetchUser();
+  }, []);
+
+console.log('userData dans profil.tsx :', user);
+
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar style="light" />
+      <StatusBar style="light" backgroundColor="#ffb6c1" />
       <View style={styles.header}>
         <Text style={styles.headerText}>Mon Profil</Text>
       </View>
@@ -20,12 +50,12 @@ export default function ProfilePage() {
           }}
           style={styles.profileImage}
         />
-        <Text style={styles.name}>Ariane</Text>
+        <Text style={styles.name}>{user.name}</Text>
         <Text style={styles.email}>ariane@example.com</Text>
       </View>
 
       <View style={styles.menu}>
-        <TouchableOpacity style={styles.menuItem} onPress={() => router.push("/tasks")}>
+        <TouchableOpacity style={styles.menuItem} onPress={() => router.push('/TaskListScreen')}>
           <Feather name="list" size={20} color="#d6336c" />
           <Text style={styles.menuText}>Mes Tâches</Text>
         </TouchableOpacity>
@@ -35,7 +65,7 @@ export default function ProfilePage() {
           <Text style={styles.menuText}>Paramètres</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.menuItem}>
+        <TouchableOpacity style={styles.menuItem} onPress={()=>handleLogout()}>
           <Feather name="log-out" size={20} color="#d6336c" />
           <Text style={styles.menuText}>Se Déconnecter</Text>
         </TouchableOpacity>
@@ -79,7 +109,7 @@ const styles = StyleSheet.create({
   },
   email: {
     fontSize: 16,
-    color: "#555",
+    color: "white",
     marginTop: 5,
   },
   menu: {
