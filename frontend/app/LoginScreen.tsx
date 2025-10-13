@@ -8,30 +8,31 @@ import {
   ImageBackground,
   Image,
 } from "react-native";
-import { login } from "@/src/auth";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import axios from "axios";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
-import api from "@/src/api";
+import { useAuth } from "@/assets/context/AuthContext";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const { login } = useAuth();  
 // Ajoute ceci dans ton LoginScreen.handleLogin (temporaire pour debug)
 
 
-const handleLogin = async () => {
-  try {
-    const response = await api.post("/login", { email, password });
-    console.log("DEBUG login response.data:", response.data);
-    // Ne fais pas encore de stockage; on regarde seulement la réponse
-  } catch (error) {
-    console.error("Erreur de connexion debug:", error.response?.data || error);
-  }
-};
+  const handleLogin = async () => {
+    try {
+      
+      await login(email,password);
+      router.replace("/TaskListScreen");
+    } catch (error) {
+      console.error("Erreur de connexion", error);
+    }
+  };
 
 
   return (

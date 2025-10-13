@@ -6,26 +6,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { router } from "expo-router";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
+import { useTasks } from "@/assets/context/TasksContext";
 
 export default function TaskItem() {
-  const [tasks, setTasks] = useState([]); // liste des tâches
+const { tasks} = useTasks();
   const [loading, setLoading] = useState(true);
 
   // Récupérer les tâches au montage du composant
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const data = await getTasks(); // récupère les tâches de l’utilisateur connecté
-        console.log("data", data);  
-        setTasks(data);
-      } catch (error) {
-        console.error("Erreur lors du chargement des tâches :", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchTasks();
-  }, []);
 
   if (loading) {
     return (
@@ -38,7 +25,7 @@ export default function TaskItem() {
 
   return (
     <SafeAreaView>
-      <StatusBar backgroundColor="#ffe0f0" />
+      <StatusBar style="light" backgroundColor="#ffe0f0" />
       <View style={styles.header}>
         <Text style={{ color: "#d6336c", fontSize: 20, fontWeight: "900" }}>Liste des tâches</Text>
       </View>

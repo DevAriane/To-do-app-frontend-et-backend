@@ -7,11 +7,11 @@ import {
   StyleSheet,
   Alert,
   StatusBar,
-  ActivityIndicator,
-} from "react-native";
+  ActivityIndicator,} from "react-native";
 import { useRouter } from "expo-router";
-import { register } from "@/src/auth"; // Fonction à créer dans auth.ts
+
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAuth } from "@/assets/context/AuthContext";
 
 export default function RegisterScreen() {
   const [email, setEmail] = useState("");
@@ -20,6 +20,7 @@ export default function RegisterScreen() {
   const [loadingRegister, setLoadingRegister] = useState(false);
   const [loadingLogin, setLoadingLogin] = useState(false);
   const router = useRouter();
+  const { register } = useAuth(); 
 
   const handleRegister = async () => {
 if (!name.trim() || !email.trim() || !password.trim()) {
@@ -56,7 +57,7 @@ if (!name.trim() || !email.trim() || !password.trim()) {
 
   return (
     <SafeAreaView style={styles.background}>
-      <StatusBar backgroundColor="#fff0f6" />
+      <StatusBar style="light" backgroundColor="#fff0f6" />
       <View style={styles.container}>
         <Text style={styles.title}>Créer un compte 🌸</Text>
 

@@ -4,41 +4,23 @@ import { StatusBar } from "expo-status-bar";
 import { Feather } from "@expo/vector-icons";
 import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {getUserData} from "@/src/auth"; 
 import React, { useEffect, useState } from "react"; 
-import api from "@/src/api";
+import { useAuth } from "@/assets/context/AuthContext";
 
 export default function ProfilePage() {
+  const { user,logout } = useAuth();
 const handleLogout = async () => {
   await AsyncStorage.removeItem('token');
   await AsyncStorage.removeItem('userData');
   router.replace('/LoginScreen'); // redirige vers l’écran de connexion
 };
- const [user, setUser] = useState<any>(null);
 
-  useEffect(() => {
-        const fetchUser = async () => {
-      const token = await AsyncStorage.getItem("token");
-      console.log("token :::", token);
-
-      if (!token) return;
-
-      try {
-        const res = await api.get("/user"); // ta route protégée Laravel
-        console.log("userData :", res.data);
-        setUser(res.data);
-      } catch (e) {
-        console.error("Erreur récupération user", e);
-      }
-    };
-    fetchUser();
-  }, []);
 
 console.log('userData dans profil.tsx :', user);
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar style="light" backgroundColor="#ffb6c1" />
+      <StatusBar style="light" backgroundColor="#ffe0f0" />
       <View style={styles.header}>
         <Text style={styles.headerText}>Mon Profil</Text>
       </View>
@@ -46,12 +28,12 @@ console.log('userData dans profil.tsx :', user);
       <View style={styles.profileContainer}>
         <Image
           source={{
-            uri: "https://randomuser.me/api/portraits/women/68.jpg",
+            uri: "https://cdn-icons-png.flaticon.com/512/4825/4825038.png",
           }}
           style={styles.profileImage}
         />
-        <Text style={styles.name}>{user.name}</Text>
-        <Text style={styles.email}>ariane@example.com</Text>
+        <Text style={styles.name}>{user?.name}</Text>
+        <Text style={styles.email}>{user?.email}</Text>
       </View>
 
       <View style={styles.menu}>
@@ -83,7 +65,7 @@ const styles = StyleSheet.create({
     height: 80,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#ffb6c1", // header rose foncé
+    backgroundColor:"#ffe0f0", // header rose foncé
   },
   headerText: {
     fontSize: 22,

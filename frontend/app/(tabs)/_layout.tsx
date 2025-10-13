@@ -8,11 +8,16 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import Feather from '@expo/vector-icons/Feather';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { useAuth } from '@/assets/context/AuthContext';
+import { AuthProvider } from '@/assets/context/AuthContext';
+import { TaskProvider } from '@/assets/context/TasksContext';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
+<AuthProvider>
+<TaskProvider>
     <Tabs
   screenOptions={{
     headerShown: false,
@@ -63,7 +68,8 @@ export default function TabLayout() {
     }}
   />
 </Tabs>
-
+</TaskProvider>
+</AuthProvider>
   );
 }
 
